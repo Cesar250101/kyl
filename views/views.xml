@@ -1,0 +1,62 @@
+<odoo>
+  <data>
+
+
+    <record id="purchase.purchase_order_tree_cotaco" model="ir.ui.view">
+    <field name="name">purchase.purchase_order.tree.cotaco</field>
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+    <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="partner_id"/>
+                <field name="create_uid" />
+            </field>
+    </field>
+    </record>
+
+    <!-- Inherit Form View to Modify it -->
+<!--    <record id="sale.view_order_form_method" model="ir.ui.view">-->
+<!--        <field name="name">sale.view_order.form.method</field>-->
+<!--        <field name="model">sale.order</field>-->
+<!--        <field name="inherit_id" ref="sale.view_order_form"/>-->
+<!--        <field name="arch" type="xml">-->
+
+<!--            <xpath expr="//field[@name='payment_term_id']" position="after">-->
+<!--                <field name="driver_id"/>-->
+<!--            </xpath>-->
+
+<!--        </field>-->
+<!--    </record>-->
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="kyl.purchase_order_form" model="ir.ui.view">
+        <field name="name">kyl.purchase.order.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="flota_id"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="kyl.invoice_supplier_form" model="ir.ui.view">
+        <field name="name">kyl.invoicesupplier.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='company_currency_id']" position="after">
+                <field name="flota_id"/>
+                <field name="tipo_servicio_id" attrs="{'invisible': [('flota_id', '=', '')]}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+  </data>
+</odoo>
