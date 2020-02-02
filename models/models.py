@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from datetime import datetime
 
 class NotaVenta(models.Model):
     _inherit = 'sale.order'
@@ -17,12 +18,17 @@ class FacturaCompra(models.Model):
 
     flota_id = fields.Many2one(comodel_name="fleet.vehicle", string="Caminion", required=False, )
     tipo_servicio_id = fields.Many2one(comodel_name="fleet.service.type", string="Tipo de Servicio", required=False, )
+    current_user_id = fields.Many2one(
+                                        comodel_name='res.users',
+                                        string='Usuario Actual',
+                                        default=lambda self: self.env.user.id)
 
     @api.multi
     def action_invoice_open(self):
         fleet_vehicle = self.env['fleet.vehicle']
         factura= super(FacturaCompra, self).action_invoice_open()
-        #self.env.cr.execute("SELECT id, num_bl FROM stock_picking WHERE state='done' and invoice_state='2binvoiced' and partner_id= %d" %(partner) )
+        now = datetime.now()
+        descripcion=self.tipo_servicio_id.name+" "+self.reference+" "+ self.partner_id.name
         if self.flota_id:
             new_rec = self.env['fleet.vehicle.cost'].create({
                 'name': self.partner_id.name,  # many2one must be an integer value
@@ -31,10 +37,10 @@ class FacturaCompra(models.Model):
                 'amount': self.amount_untaxed,
                 'cost_type':'services',
                 'date': self.date_invoice,
-                'description':self.tipo_servicio_id.name,
-                'create_uid':1,
-                'create_date': self.date_invoice,
-                'write_uid':1,
-                'write_date':self.date_invoice
+                'description':descripcion,
+                'create_uid':self.current_user_id,
+                'create_date': now,
+                'write_uid':self.current_user_id,
+                'write_date':now
             })
 
