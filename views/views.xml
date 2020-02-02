@@ -37,7 +37,9 @@
 
             <xpath expr="//field[@name='date_order']" position="after">
                 <field name="flota_id"/>
+                <field name="tipo_servicio_id" attrs="{'invisible': [('flota_id', '=', False)], 'required': [('flota_id', '!=', False)]}"/>
             </xpath>
+
 
         </field>
     </record>

@@ -11,12 +11,14 @@ class NotaVenta(models.Model):
 class NewModule(models.Model):
     _inherit = 'purchase.order'
 
-    flota_id = fields.Many2one(comodel_name="fleet.vehicle", string="Caminion", required=False, )
+    flota_id = fields.Many2one(comodel_name="fleet.vehicle", string="Camión", required=False, )
+    tipo_servicio_id = fields.Many2one(comodel_name="fleet.service.type", string="Tipo de Servicio", required=False, )
+
 
 class FacturaCompra(models.Model):
     _inherit = 'account.invoice'
 
-    flota_id = fields.Many2one(comodel_name="fleet.vehicle", string="Caminion", required=False, )
+    flota_id = fields.Many2one(comodel_name="fleet.vehicle", string="Camión", required=False, )
     tipo_servicio_id = fields.Many2one(comodel_name="fleet.service.type", string="Tipo de Servicio", required=False, )
     current_user_id = fields.Many2one(
                                         comodel_name='res.users',
