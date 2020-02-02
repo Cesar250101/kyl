@@ -3,15 +3,16 @@
     'name': "kyl",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+                Localización empresa KYL, se agregar lo siguiente:
+                1.- Coductor en las notas de ventas
+                2.- Se integra las facturas de compras con el módulo de control de Flota""",
 
     'description': """
         Long description of module's purpose
     """,
 
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': "Method",
+    'website': "http://www.openmethod.cl",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/11.0/odoo/addons/base/module/module_data.xml
@@ -20,7 +21,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','purchase'],
+    'depends': ['base','purchase','fleet'],
 
     # always loaded
     'data': [
