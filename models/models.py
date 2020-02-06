@@ -30,7 +30,8 @@ class FacturaCompra(models.Model):
         fleet_vehicle = self.env['fleet.vehicle']
         factura= super(FacturaCompra, self).action_invoice_open()
         now = datetime.now()
-        descripcion=self.tipo_servicio_id.name+" "+self.reference+" "+ self.partner_id.name
+        if self.flota_id:
+            descripcion=self.tipo_servicio_id.name+" "+self.reference+" "+ self.partner_id.name
         if self.flota_id:
             new_rec = self.env['fleet.vehicle.cost'].create({
                 'name': self.partner_id.name,  # many2one must be an integer value
